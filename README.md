@@ -1,1 +1,1 @@
-A minigrep command line software from gitbook -- Rust program language
+A minigrep command line software from gitbook -- The Rust programming language
