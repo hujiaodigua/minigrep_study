@@ -20,7 +20,7 @@ fn main()
     println!("Searching for {}", config.query);
     println!("In file {}", config.filename);
 
-    if let Err(e) = minigrep::run(config){
+    if let Err(e) = minigrep::run(config){    // minigrep是工程名称,run是库lib.rs中的pub fn
         println!("Application error: {}", e);
         
         process::exit(1);
