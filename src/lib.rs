@@ -57,17 +57,20 @@ Trust me.";
 
 fn search<'a>(query: &str, contents: &'a str) -> Vec<&'a str> 
 {
-    let mut results = Vec::new();
+    // let mut results = Vec::new();
 
-    for line in contents.lines() 
-    {
-        if line.contains(query) 
-        {
-            results.push(line);
-        }
-    }
+    // for line in contents.lines() 
+    // {
+    //     if line.contains(query) 
+    //     {
+    //         results.push(line);
+    //     }
+    // }
 
-    results
+    // results
+    contents.lines()
+            .filter(|line| line.contains(query))
+            .collect()
 }
 
 fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str>
@@ -101,17 +104,27 @@ pub struct Config
 // }
 
 // 构造函数
-impl Config 
+impl Config    // Config类
 {
-    pub fn new(args: &[String]) -> Result<Config, &'static str>
+    pub fn new(mut args: std::env::Args) -> Result<Config, &'static str>
     {
         if args.len() < 3    // 检查错误 
         {
             return Err("not enough arguments");
         }
 
-        let query = args[1].clone();
-        let filename = args[2].clone();
+        // let query = args[1].clone();
+        // let filename = args[2].clone();
+
+        let query = match args.next(){
+            Some(arg) => arg,
+            None => return Err("Didn't get a query string"),
+        };
+
+        let filename = match args.next(){
+            Some(arg) => arg,
+            None => return Err("Didn't get a file name"),
+        };
 
         let case_sensitive = env::var("CASE_INSENSITIVE").is_err();
 
